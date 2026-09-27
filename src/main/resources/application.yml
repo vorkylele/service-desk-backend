@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: ${SERVICEDESK_DB_URL:jdbc:postgresql://localhost:5433/servicedesk}
+    username: ${SERVICEDESK_DB_USER:servicedesk}
+    password: ${SERVICEDESK_DB_PASSWORD:servicedesk}
+  jpa:
+    hibernate:
+      ddl-auto: none        # схемой управляет Flyway
+    open-in-view: true
+  flyway:
+    enabled: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+servicedesk:
+  security:
+    # секрет подписи токенов; в промышленной среде задаётся переменной окружения
+    jwt-secret: ${SERVICEDESK_JWT_SECRET:dev-only-secret-change-me-please-32bytes!}
+    token-ttl-minutes: 480
+  sla:
+    work-day-start: "09:00"
+    work-day-end: "18:00"
+  demo:
+    # начальный пароль демонстрационных учётных записей
+    default-password: demo
